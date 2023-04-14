@@ -1,0 +1,24 @@
+﻿@page "/category/edit/{id:int}"
+@inject CategoryServ categoryServ
+<PageTitle>CategoryEdit</PageTitle>
+<h3>CategoryEdit</h3>
+<h1>@myCategory</h1>
+<hr />
+@if(myCategory != null){
+    <EditForm Model="myCategory" OnSubmit="Save">
+        @*OnValidSubmit="Valid"*@
+            <div>
+                <label>Name </label>
+            <InputText @bind-Value="myCategory.Name"></InputText>
+            </div>
+
+        <input type="submit" value="Edit" class="btn btn-success">
+    </EditForm>
+}else{
+    <h1>Try With differnt id </h1>
+}
+<a href="/catDetail/@id">DEtails</a>
+@code {
+    [Parameter]
+    public int id { get; set; }
+}

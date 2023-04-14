@@ -1,0 +1,58 @@
+﻿@page "/prodList"
+@inject ProductServ productServ
+@inject CrudProductServ crudProductServ
+<PageTitle>ProductList</PageTitle>
+<h3>ProductList</h3>
+<table>
+    <tr>
+        <td>Number</td>
+        <td>Name</td>
+        <td>Price </td>
+        <td>Category </td>
+        <td>links</td>
+    </tr>
+    @if (products != null)
+    {
+
+        @foreach (var item in products)
+        {
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                @*<td>@item.CategoryId</td>*@
+                <td><a class="btn btn-info" href="/pDetail/@item.Id"> details</a>
+                    <a class="btn btn-dark" href="/product/edit/@item.Id">edit</a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <h3>products equal Null</h3>
+    }
+</table>
+
+@code {
+    public List<Product> products { get; set; }
+
+    public ProductList(){
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        products = await crudProductServ.GetAll();
+         base.OnInitializedAsync();
+    }
+    //protected override async Task OnInitialized()
+    //{
+
+    //    base.OnInitialized();
+    //}
+    //protected override void OnInitialized()
+    //{
+    //    products = productServ.getAll();
+    //    base.OnInitialized();
+    //}
+}

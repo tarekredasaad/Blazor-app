@@ -1,0 +1,50 @@
+﻿@page "/emp"
+@using BlazorApp1.Department
+<PageTitle>Employee</PageTitle>
+<h3>Employee</h3>
+<select
+   @bind="id">
+    @foreach(var item in departments){
+        <option value="@item.Id">@item.Name</option>
+    }
+</select>
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Salary</td>
+    </tr>
+    @foreach (var item in EmpList.Where(e=>e.deptID == id ).ToList()) // Where().List()
+    {
+        <tr>
+            <td>@item.deptID</td>
+            <td>@item.Name</td>
+            <td>@item.Salary</td>
+        </tr>
+    }
+    
+    
+</table>
+@code {
+    //[Parameter]//get value fro route placeholder
+    public int id { get; set; }
+    //public Person MyPerson { get; set; }
+    public List<Employee1> EmpList { get; set; }
+    public List<Department> departments { get; set; }
+    public Employee()
+    {
+        //Console.WriteLine("Constructor " + id);
+        EmpList = new List<Employee1>();
+        EmpList.Add(new Employee1() { Id = 1, Name = "Ahmed", Salary = 20000, deptID = 1 });
+        EmpList.Add(new Employee1() { Id = 2, Name = "Hamada", Salary = 20000, deptID = 1 });
+        EmpList.Add(new Employee1() { Id = 3, Name = "Bilal", Salary = 20000, deptID = 2 });
+        EmpList.Add(new Employee1() { Id = 4, Name = "Essam", Salary = 20000, deptID = 2 });
+        EmpList.Add(new Employee1() { Id = 5, Name = "Mohammed", Salary = 20000, deptID = 3 });
+        EmpList.Add(new Employee1() { Id = 6, Name = "Nour", Salary = 20000, deptID = 3 });
+
+        departments = new List<Department>();
+        departments.Add(new Department() { Id = 1, Name = "Sales"});
+        departments.Add(new Department() { Id = 2, Name = "Marketing" });
+        departments.Add(new Department() { Id = 3, Name = "HR" });
+
+    }
+}

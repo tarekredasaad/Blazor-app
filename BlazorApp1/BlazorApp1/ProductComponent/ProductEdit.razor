@@ -1,0 +1,53 @@
+﻿@page "/product/edit/{id:int}"
+@inject ProductServ productServ
+@inject CrudProductServ crudProductServ
+@inject CategoryServ categoryServ
+@inject CrudSupplierServ crudSupplierServ
+@inject NavigationManager navManager
+<PageTitle>ProductEdit</PageTitle>
+
+<h3>ProductEdit</h3>
+<h1>@myProduct</h1>
+<hr />
+@if (myProduct != null)
+{
+    <EditForm Model="myProduct" OnSubmit="Save">
+        @*OnValidSubmit="Valid" OnInvalidSubmit="Invalid"*@
+       
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+            <div>
+                <label>Name </label>
+            <InputText @bind-Value="myProduct.Name"></InputText>
+            <ValidationMessage For="()=>myProduct.Name"></ValidationMessage>
+            </div>
+            <div>
+            <label>Price </label>
+            <InputNumber @bind-Value="myProduct.Price"></InputNumber>
+            <ValidationMessage For="()=>myProduct.Price"></ValidationMessage>
+            </div>
+            <div>
+                @*<label>Image </label>
+            <InputText @bind-Value="myProduct.Image"></InputText>*@
+            </div>
+            <div>
+                <label>Supplier </label>
+            @*<InputNumber @bind-Value="myEmployee.Dept_Id"></InputNumber>*@
+            <InputSelect @bind-Value="myProduct.SupplierId">
+                @foreach (var item in suppliers)
+                {
+                            <option value="@item.Id" >@item.Name</option>
+                }
+                </InputSelect>
+            </div>
+            <input type="submit" value="Edit" class="btn btn-success">
+        </EditForm>
+}
+else
+{
+    <h1>Try With differnt id </h1>
+}
+<a href="/pDetail/@id">DEtails</a>
+@code {
+    
+}

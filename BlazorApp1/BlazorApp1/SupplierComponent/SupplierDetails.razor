@@ -1,0 +1,49 @@
+﻿@page "/Emp/DEtails/{id:int}"
+@inject CrudSupplierServ SupService
+<h3>SupplierDetails</h3>
+<div class="card">
+    <div class="card-body">
+        @foreach (var item in suppliers)
+       {
+           
+        <h4 class="card-title">@item.Name</h4>
+       }
+    </div>
+</div>
+@*<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Supplier?.SupplierName</h4>
+        @*<p class="card-text">@Supplier?.Salary</p>
+        <a href="/Supplier/edit/@id" class="card-link">Edit</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
+</div>*@
+@code {
+    [Parameter]
+    public int id { get; set; }
+    public Supplier supplier { get; set; }
+    public List<Supplier> suppliers { get; set; }
+    public SupplierDetails(){
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        suppliers = await SupService.GetAll();
+        //supplier = await SupService.GetById(id);
+        base.OnInitializedAsync();
+    }
+
+    //protected override void OnInitialized()
+    //{
+    //    Supplier = empService.GetById(id);
+    //    Console.WriteLine($"id={id}");
+    //    base.OnInitialized();
+    //}
+    //protected override void OnParametersSet()
+    //{
+    //    Supplier = empService.getByID(id);
+    //    Console.WriteLine("on parameter set");
+    //    base.OnParametersSet();
+    //}
+}
+

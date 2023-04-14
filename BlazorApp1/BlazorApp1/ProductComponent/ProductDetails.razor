@@ -1,0 +1,31 @@
+﻿@page "/pDetail/{id:int}"
+@inject ProductServ productServ
+@inject CrudProductServ crudProductServ
+<PageTitle>ProductDetails</PageTitle>
+<h3>ProductDetails</h3>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@product?.Name</h4>
+        <p class="card-text">@product?.Price</p>
+        <a href="/product/edit/@id" class="card-link">Edit</a>
+        <a href="/prodList" class="card-link">Another link</a>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public int id { get; set; }
+    public Product product { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await crudProductServ.GetById(id);
+        base.OnInitializedAsync();
+    }
+    //protected override void OnInitialized()
+    //{
+    //    product = productServ.getByID(id);
+    //    base.OnInitialized();
+
+    //}
+
+}

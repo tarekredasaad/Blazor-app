@@ -1,0 +1,49 @@
+﻿@page "/catList"
+@inject CategoryServ categoryServ
+@using BlazorApp1.Data;
+<PageTitle>CategoryList</PageTitle>
+<h3>CategoryList</h3>
+
+<table>
+    <tr>
+        <td>Number</td>
+        <td>Name</td>
+        <td> </td>
+    </tr>
+    @if(Categories != null){
+
+        @foreach (var item in Categories)
+        {
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td><a href="/catDetail/@item.Id">details</a></td>
+            </tr>
+        }
+    } 
+    else{
+        <h3>Categories equal Null</h3>
+    }
+</table>
+@code {
+    public List<Category> Categories { get; set; }
+
+    public CategoryList(){
+
+        //ready();
+    }
+    //public void ready(){
+    //    Categories = categoryServ.getAll();
+    //}
+    protected override void OnInitialized()
+    {
+        Categories = categoryServ.getAll();
+        base.OnInitialized();
+    }
+    //ready();
+    //public CategoryList()
+    //{
+    //    Categories = categoryServ.getAll();
+    //}
+}
